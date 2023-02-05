@@ -2,7 +2,7 @@ from django.db import models
 
 
 class Chassi(models.Model):
-    numero = models.CharField('Chassi', max_lenght=16)
+    numero = models.CharField(name='numero', max_length=16, help_text="Informe 16 caracteres")
 
     class Meta:
         verbose_name = 'Chassi'
@@ -13,6 +13,9 @@ class Chassi(models.Model):
 
 
 class Carro(models.Model):
+    """
+    Every car can only be relational just with one car
+    """
     chassi = models.OneToOneField(Chassi, on_delete=models.CASCADE)
     modelo = models.CharField('Modelo', max_length=50)
     preco = models.DecimalField("Preço", max_digits=8, decimal_places=2)
