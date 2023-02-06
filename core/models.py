@@ -17,7 +17,7 @@ class Carro(models.Model):
     Every car can only be relational just with one car
     """
     chassi = models.OneToOneField(Chassi, on_delete=models.CASCADE)
-    modelo = models.CharField('Modelo', max_length=50)
+    modelo = models.CharField('Modelo', max_length=50, help_text="Informe 16 caracteres")
     preco = models.DecimalField("Preço", max_digits=8, decimal_places=2)
 
     class Meta:
