@@ -30,7 +30,7 @@ class Carro(models.Model):
     chassi = models.OneToOneField(Chassi, on_delete=models.CASCADE)
     montadora = models.ForeignKey(Montadora, on_delete=models.CASCADE)
     modelo = models.CharField('Modelo', max_length=50, help_text="Informe 16 caracteres")
-    preco = models.DecimalField("Preço", max_digits=8, decimal_places=2)
+    preco = models.DecimalField("Preço", max_digits=8, decimal_places=2) # Continue herem
 
     class Meta:
         verbose_name = 'Carro'
