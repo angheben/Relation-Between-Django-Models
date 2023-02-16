@@ -24,6 +24,17 @@ class Montadora(models.Model):
         return self.nome
 
 
+def set_default_montadora():
+    """
+    Essa função faz com que seja atribuído ao objecto carro criado uma montadora padrão ou que seja criada
+    uma com esse nome
+    :return: (object, boolean) -> Essa função retorna uma tupla com um objeto e um boolean, ou seja, se a
+    montadora não existe, ela irá criar e retornar True, caso exista ela pegará o primeiro elemento
+    dessa tupla '[0]' e o boolean False.
+    """
+    return Montadora.objects.get_or_create(nome='Padrão')[0]
+
+
 class Carro(models.Model):
     """
     OneToOneField -> Every car can only be relational just with one chassi
@@ -31,10 +42,10 @@ class Carro(models.Model):
     ManyToMany -> One car can be driven by a lot of drivers and a driver can drive a lot of cars
     """
     chassi = models.OneToOneField(Chassi, on_delete=models.CASCADE)
-    montadora = models.ForeignKey(Montadora, on_delete=models.CASCADE)
+    montadora = models.ForeignKey(Montadora, on_delete=models.SET(set_default_montadora))
     motoristas = models.ManyToManyField(get_user_model())
     modelo = models.CharField('Modelo', max_length=50, help_text="Informe 16 caracteres")
-    preco = models.DecimalField("Preço", max_digits=8, decimal_places=2)    # Test
+    preco = models.DecimalField("Preço", max_digits=8, decimal_places=2)    # Testing
 
     class Meta:
         verbose_name = 'Carro'
